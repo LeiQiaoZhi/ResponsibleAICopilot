@@ -1,0 +1,10 @@
+Type: Jupyter Notebook Extension
+Compatibility: 3.x, 4.x, 5.x, 6.x
+Name: AI Copilot
+Main: main.js
+Link: README.md
+Description: |
+  Something something ML bias detection.
+
+Parameters:
+  - none
