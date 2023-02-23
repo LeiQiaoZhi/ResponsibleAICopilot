@@ -182,7 +182,9 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
     return (
       code +
       "\n" +
-      "Tell me whether the above python code about machine learning has any potential of introducing algorithmic bias. Give an YES or NO answer. If the answer is YES, then give an explanation. Otherwise don't give an explanation.\n"
+      "Tell me whether the above python code about machine learning has any potential of introducing algorithmic bias. " +
+      "Give an Yes or No answer. If the answer is Yes, then give an explanation and some suggestions to eliminate the bias. " +
+      "Otherwise just answer No.\n"
     );
   }
 
@@ -204,12 +206,6 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
   }
 
   async function check_cell() {
-    // check for TOKEN
-    if (TOKEN.length < 20) {
-      // ask for token
-      console.log(`API TOKEN is not valid -- ${TOKEN}`);
-    }
-
     let codes = get_selected_codes();
     let content = "";
 
@@ -217,9 +213,12 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
     for (let i = 0; i < codes.length; i++) {
       example_code += codes[i] + "\n";
     }
+
+    example_code = strip_comments(example_code);
+
     let openai_response_yesno = await OpenAI_response(
       generate_YesNo(example_code),
-      { max_tokens: 200 }
+      { max_tokens: 500 }
     );
     console.log("GPT3 response: " + openai_response_yesno);
     content += "Does the code introduce bias?\n";
