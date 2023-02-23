@@ -14,12 +14,20 @@
 
 How to install the extension:
 
-1. Copy the entire the directory of this repo into the `[source]/juptyer_contrib_nbextensions/nbextensions` directory.
+1. Copy the entire the directory of this repo into the `[source]/jupyter_contrib_nbextensions/nbextensions` directory.
 2. Run the following commands in the terminal:
 
 ```
    jupyter nbextension install [directory name]
    jupyter nbextension enable [directory name]/main
+   jupyter notebook
+```
+
+by default, the directory name would be `ResponsibleAICopilot`
+
+```
+   jupyter nbextension install ResponsibleAICopilot
+   jupyter nbextension enable ResponsibleAICopilot/main
    jupyter notebook
 ```
 
