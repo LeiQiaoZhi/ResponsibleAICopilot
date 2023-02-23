@@ -14,12 +14,13 @@
 
 How to install the extension:
 
-1. Copy the entire `ai_copilot` folder into the `[source]/juptyer_contrib_nbextensions/nbextensions` folder.
+1. Copy the entire the directory of this repo into the `[source]/juptyer_contrib_nbextensions/nbextensions` directory.
 2. Run the following commands in the terminal:
 
 ```
-   jupyter nbextension install ai_copilot
-   jupyter nbextension enable ai_copilot/main
+   jupyter nbextension install [directory name]
+   jupyter nbextension enable [directory name]/main
+   jupyter nbextension enable [directory name]/info
    jupyter notebook
 ```
 
