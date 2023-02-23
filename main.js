@@ -370,7 +370,7 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
 
     init_key_cell();
     defaultCellButton();
-    // infoButton();
+    infoButton();
     metricsButton();
   }
 

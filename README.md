@@ -1,4 +1,4 @@
-# AI Copilot
+# Responsible AI Copilot
 
 ## Setup
 
@@ -20,7 +20,6 @@ How to install the extension:
 ```
    jupyter nbextension install [directory name]
    jupyter nbextension enable [directory name]/main
-   jupyter nbextension enable [directory name]/info
    jupyter notebook
 ```
 
