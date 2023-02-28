@@ -1,7 +1,4 @@
-//import {OpenaiFetchAPI} from "./gpt3-api/fetch";
-
 define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
-  let TOKEN = "sk-1iArqX5Mq40dz7PEIgcyT3BlbkFJPGT03mMrzli67x6tGQs";
   let COMMON_MISTAKES =
     "from IPython.display import display, Javascript" +
     '\ndisplay (Javascript ("""require(' +
@@ -31,7 +28,7 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
     return text;
   }
 
-  function init_key_cell() {
+  function initAPIKeyCell() {
     if (get_key().length < 10 || get_key().length > 50) {
       Jupyter.notebook.select_prev();
       Jupyter.notebook
@@ -206,6 +203,12 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
   }
 
   async function check_cell() {
+    // check for TOKEN
+    if (TOKEN.length < 20) {
+      // ask for token
+      console.log(`API TOKEN is not valid -- ${TOKEN}`);
+    }
+
     let codes = get_selected_codes();
     let content = "";
 
@@ -323,25 +326,23 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
       "Discrimination metric: dependence rate of y_true label on sensitive features\n" +
       "    Fomula: the difference between lowest & highest P(y|d) for each sensitive feature,\n" +
       "        where y is the advantageous (favorable) label(s), d takes sensitive feature values.\n" +
-      "        Difference is computed based on a distance function.\n" +
+      "        The difference is computed based on distance function J(x,y) = abs(x/y - 1).\n" +
       "\n" +
       "Parameters:\n" +
       "    dataset (numpy.ndarray (structured), dict, or pandas.DataFrame): the dataset\n" +
       "    sensitive_attr_names (list[str]): the list of names of sensitive features in the dataset\n" +
       "    y_true (numpy.ndarray, or list[]): the array of true labels corresponding to each input data\n" +
       "    y_advantage_labels (list[], or a value): the value(s) for advantageous (favorable) label(s)\n" +
-      "    distance_fun (function(float, float) -> float): customise the distance function for metric calculation,\n" +
-      "        default as J(x,y) = abs(x/y - 1)\n" +
       "\n" +
       "See also:\n" +
       "    Optimized Data Pre-Processing for Discrimination Prevention (Calmon et al., 2017)\n" +
       '"""\n' +
-      "from jupyter_contrib_nbextensions.nbextensions.ai_copilot.bias_metrics.testBiasDataset import test_bias_dataset\n" +
+      "%matplotlib inline\n" +
+      "from jupyter_contrib_nbextensions.nbextensions.ai_copilot.bias_metrics.testDatasetBias import test_bias_dataset\n" +
       'test_bias_dataset(dataset="""replace this with your dataset""",\n' +
       '         sensitive_attr_names="""replace this with the name list of sensitive features""",\n' +
       '         y_true="""replace this with your true label array""",\n' +
-      '         y_advantage_labels="""replace this with advantageous label values""",\n' +
-      "         distance_fun=lambda x, y: abs(x / y - 1))";
+      '         y_advantage_labels="""replace this with advantageous label values""")';
 
     Jupyter.notebook.insert_cell_below("code").set_text(code);
     Jupyter.notebook.select_next();
@@ -366,12 +367,7 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
 
   // Run on start
   function load_ipython_extension() {
-    // Add a default cell if there are no cells
-    /*if (Jupyter.notebook.get_cells().length === 1) {
-            check_cell();
-        }*/
-
-    init_key_cell();
+    initAPIKeyCell();
     defaultCellButton();
     infoButton();
     metricsButton();

@@ -2,10 +2,10 @@
 
 ## Setup
 
-1. Install Jupyter Notebook with the following command:
+1. Install Jupyter Notebook with the following command if it is not already installed:
    `pip install notebook`
 
-2. Install Notebook extensions using the following command:
+2. Install Notebook extensions using the following command if they are not already installed:
    `pip install jupyter_contrib_nbextensions`
 
 3. Find the path of the jupyter_contrib_nbextensions, save the path somewhere, so cou can find it later
