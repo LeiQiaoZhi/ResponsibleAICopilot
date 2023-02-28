@@ -19,17 +19,18 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
     ');"""))';
 
   function get_key() {
-    console.log("GET KEY");
+    console.log("Getting KEY from user block");
     var text = Jupyter.notebook.get_cells()[0].get_text();
     text = text.replace(`"`, ``);
     text = strip_comments(text);
-    console.log(typeof text);
-    console.log(`API KEY: ${text}`);
+    console.log(`Parsed API KEY: ${text}`);
     return text;
   }
 
   function initAPIKeyCell() {
-    if (get_key().length < 10 || get_key().length > 50) {
+    key = get_key();
+    console.log(key.length);
+    if (key.length < 40 || key.length > 60) {
       Jupyter.notebook.select_prev();
       Jupyter.notebook
         .insert_cell_above()
@@ -203,12 +204,6 @@ define(["base/js/namespace", "base/js/events"], function (Jupyter, events) {
   }
 
   async function check_cell() {
-    // check for TOKEN
-    if (TOKEN.length < 20) {
-      // ask for token
-      console.log(`API TOKEN is not valid -- ${TOKEN}`);
-    }
-
     let codes = get_selected_codes();
     let content = "";
 
