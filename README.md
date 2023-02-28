@@ -22,7 +22,7 @@ How to install the extension:
 2. Run the following commands in the terminal:
 
 ```
-   jupyter nbextension install [directory name]
+   jupyter contrib nbextension install --user
    jupyter nbextension enable [directory name]/main
    jupyter notebook
 ```
@@ -31,7 +31,6 @@ by default, the directory name would be `ResponsibleAICopilot`
 
 ```
    jupyter contrib nbextension install --user
-   jupyter nbextension install ResponsibleAICopilot
    jupyter nbextension enable ResponsibleAICopilot/main
    jupyter notebook
 ```
